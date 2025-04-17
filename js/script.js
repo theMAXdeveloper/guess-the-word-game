@@ -49,7 +49,7 @@ guessButton.addEventListener("click", function (e) {
 
 	const inputCheck = checkInput(inputValue);
 
-	if (inputCheck.match(/[a-zA-Z]/)) {
+	if (inputCheck) {
 		makeGuess(inputValue);
 	}
 });
@@ -74,9 +74,46 @@ const makeGuess = function (letter) {
 		message.innerText = `You have already guessed the letter ${letter}, please try again.`
 	} else {
 		guessedLetters.push(letter)
+		updateLetters();
+		updateWord(guessedLetters);
 	}
+};
 
-	console.log(guessedLetters);
-}
+const updateLetters = function () {
+	guesses.innerHTML = "";
+
+	for (const letter of guessedLetters) {
+		const li = document.createElement("li")
+		li.innerText = letter
+		guesses.append(li)
+	}	
+};
+
+const updateWord = function (guessedLetters) {
+	const wordUpper = word.toUpperCase();
+
+	const wordArray = wordUpper.split("");
+
+	const revealGuesses = [];
+
+	for (const letter of wordArray) {
+		if (guessedLetters.includes(letter)) {
+			revealGuesses.push(letter.toUpperCase())
+		} else {
+			revealGuesses.push("●")
+		}
+	}
+	wordInProgress.innerText = revealGuesses.join("");
+	successGuess();
+};
+
+const successGuess = function () {
+	if (word.toUpperCase() === wordInProgress.innerText) {
+		message.classList.add("win");
+		message.innerHTML = '<p class="highlight">You guessed correct the word! Congrats!</p>';
+	}
+};
+
+
 
 
