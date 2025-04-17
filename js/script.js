@@ -25,20 +25,24 @@ const playAgainButton = document.querySelector(".play-again");
 // Temporary placeholder word //
 const word = "magnolia";
 
-
-const placeholder = function (word) {
-	const placeholderArray = []
-	for (const letter of word) {
-		placeholderArray.push("●");
+const placeholderDots = function (word) {
+	const dotArray = [];
+	for (let letter of word) {
+		dotArray.push("●")
 	}
-	wordInProgress.innerText = placeholderArray.join("");
+	wordInProgress.innerText = dotArray.join("")
 };
 
-placeholder(word);
+placeholderDots(word);
 
 guessButton.addEventListener("click", function (e) {
 	e.preventDefault();
-	const inputValue = letterInput.value
+
+	const inputValue = letterInput.value;
+
 	console.log(inputValue);
+
 	letterInput.value = "";
-}); 
+});
+
+
